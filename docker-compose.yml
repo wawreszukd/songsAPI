@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    environment:
+      client_id: "98cf59a9784d477fb01224024e8d1551"
+      client_secret: "f4cd03a953c24c97b0de652c6c89d476"
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
