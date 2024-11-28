@@ -1,4 +1,4 @@
-package backend
+package main
 
 import (
 	"bytes"
@@ -25,7 +25,7 @@ func main() {
 		handleGet(w, r, accesToken)
 	})
 	fmt.Println("Server is running on port 5000")
-	http.ListenAndServe("5000", nil)
+	http.ListenAndServe(":5000", nil)
 }
 func refreshToken(clientId string, clientSecret string, spotiToken *string) {
 	ticker := time.NewTicker(1 * time.Hour)
@@ -41,6 +41,7 @@ func refreshToken(clientId string, clientSecret string, spotiToken *string) {
 	}
 }
 func handleGet(w http.ResponseWriter, r *http.Request, accesToken string) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	query := r.URL.Query().Get("q")
 	if query == "" {
 		http.Error(w, "missing query parameter", http.StatusBadRequest)
