@@ -1,18 +1,13 @@
-FROM golang:1.23-alpine
+FROM golang:1.23
 
 WORKDIR /app
 
-COPY backend/go.mod ./
-RUN go mod download
+COPY backend/go.mod .
 
+COPY backend/* .
 
-COPY ./backend/* .
+RUN go build -o main .
 
-# Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+EXPOSE 5000
 
-RUN chmod +x main
-EXPOSE 8080
-
-# Run
 CMD ["./main"]
